@@ -1,17 +1,38 @@
 <template>
   <div class="container">
-      <image src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/7d42775b8f0d0c86589082dc9ee179c2.png" class="bannar-image"/>
-      <text @click="changeMessage" class="message">{{ message }}</text>
-      <text class="quotes">{{ quotes }}</text>
-      <text @click="getSomeThing">get Data.</text>
+      <div class="main" v-for="item in list">
+        <image class="hero_icon" :src="'http://cdn.tgp.qq.com/pallas/images/champions_id/' + item.id + '.png'" alt=""></image>
+        <text class="hero_name">{{item.cname}}</text>
+      </div>
   </div>
 </template>
 
 <style>
   .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    width: 750px;
+    flex-wrap: wrap;
+  }
+  .main {
+    width: 187px;
+    height: 100px;
+    margin-bottom: 10px;
+    text-align: center;
+    flex: 1;
+  }
+  .hero_icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-left: 64px;
+  }
+  .hero_name {
+    width: 187px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
   }
 
   .bannar-image {
@@ -33,28 +54,28 @@
 </style>
 
 <script>
-  var stream = weex.requireModule('stream')
+  import Utils from './normal/utils.js'
   export default {
     data() {
       return {
         message: 'Welcome to Use Weexpack!',
-        quotes: 'A Tool To Build WEEX Faster'
+        quotes: 'A Tool To Build WEEX Faster',
+        list: []
       };
     },
     methods: {
-      changeMessage() {
-        this.message = 'You click it!';
-      },
-      getSomeThing () {
-        stream.fetch({
-          method: 'GET',
-          url: 'https://cnodejs.org/api/v1/topics',
-          type: 'json',
-          body: ''
-        },(res) => {
-          console.log(res)
-        })
+      toDetailPage (element) {
+        this.$router.push(`/hero_detail/${element}`)
       }
+    },
+    created () {
+        Utils.GetData('http://lolapi.games-cube.com/champion','', (e)=>{
+          console.log(e)
+          e = e.data
+          if(e.msg === 'ok'){
+            this.list = e.data
+          }
+        })
     }
   }
 </script>
