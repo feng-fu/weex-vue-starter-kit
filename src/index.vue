@@ -3,6 +3,7 @@
       <image src="http://ata2-img.cn-hangzhou.img-pub.aliyun-inc.com/7d42775b8f0d0c86589082dc9ee179c2.png" class="bannar-image"/>
       <text @click="changeMessage" class="message">{{ message }}</text>
       <text class="quotes">{{ quotes }}</text>
+      <text @click="getSomeThing">get Data.</text>
   </div>
 </template>
 
@@ -32,6 +33,7 @@
 </style>
 
 <script>
+  var stream = weex.requireModule('stream')
   export default {
     data() {
       return {
@@ -42,6 +44,16 @@
     methods: {
       changeMessage() {
         this.message = 'You click it!';
+      },
+      getSomeThing () {
+        stream.fetch({
+          method: 'GET',
+          url: 'https://cnodejs.org/api/v1/topics',
+          type: 'json',
+          body: ''
+        },(res) => {
+          console.log(res)
+        })
       }
     }
   }
