@@ -1,8 +1,8 @@
 import App from './index.vue'
-import Router from './router.js'
+import router from './router.js'
 
 new Vue({
   el: '#root',
-  Router,
+  router,
   render: h => h(App)
 })

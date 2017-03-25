@@ -1,7 +1,9 @@
 <template>
-  <div id="detailPage">
-      <text style="width: 750px;height: 80px; line-height: 80px; font-size: 50px;text-align: center;color: #0683e5;">{{content.title}}</text>
-      <image style="width: 650px;margin-left: 50px;height: 500px;margin-top: 100px;" :src="imageUrl"></image>
+  <div class="container">
+      <div class="main" v-for="item in list" @click="toDetailPage(item.id)">
+        <image class="hero_icon" :src="'http://cdn.tgp.qq.com/pallas/images/champions_id/' + item.id + '.png'" alt=""></image>
+        <text class="hero_name">{{item.cname}}</text>
+      </div>
   </div>
 </template>
 
@@ -12,6 +14,7 @@
     align-items: center;
     width: 750px;
     flex-wrap: wrap;
+    justify-content: flex-start;
   }
   .main {
     width: 187px;
@@ -52,27 +55,26 @@
 </style>
 
 <script>
-  import Utils from '.././normal/utils.js'
+  import Utils from './../normal/utils.js'
   export default {
     data() {
       return {
-        content: Object,
-        imageUrl: ''
+        list: []
       };
     },
     methods: {
-
+      toDetailPage (element) {
+        this.$router.push(`/hero_detail/${element}`)
+      }
     },
     created () {
-      let champion_id = this.$route.params.id
-      this.imageUrl = `http://cdn.tgp.qq.com/pallas/images/skins/original/${champion_id}-000.jpg`
-      Utils.GetData(`http://lolapi.games-cube.com/GetChampionDetail?champion_id=${champion_id}`, '', (res)=> {
-          res = res.data
-          if (res.msg === "ok") {
-              this.content = res.data[0]
-              console.log(res.data[0])
+        Utils.GetData('http://lolapi.games-cube.com/champion','', (e)=>{
+          console.log(e)
+          e = e.data
+          if(e.msg === 'ok'){
+            this.list = e.data
           }
-      })
+        })
     }
   }
 </script>
