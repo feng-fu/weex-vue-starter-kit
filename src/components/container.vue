@@ -17,22 +17,25 @@
     justify-content: flex-start;
   }
   .main {
-    width: 187px;
+    width: 375px;
     height: 100px;
     margin-bottom: 10px;
     text-align: center;
     flex: 1;
+    flex-direction: row;
   }
   .hero_icon {
     width: 60px;
-    height: 60px;
+    height: 103px;
     border-radius: 30px;
     margin-left: 64px;
+    flex: 1;
   }
   .hero_name {
-    width: 187px;
-    height: 30px;
-    line-height: 30px;
+    flex: 2;
+    margin-top: 25px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
   }
 

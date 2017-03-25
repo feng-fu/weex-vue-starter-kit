@@ -2,6 +2,9 @@
   <div id="detailPage">
       <text style="width: 750px;height: 80px; line-height: 80px; font-size: 50px;text-align: center;color: #0683e5;">{{content.title}}</text>
       <image style="width: 650px;margin-left: 50px;height: 500px;margin-top: 100px;" :src="imageUrl"></image>
+      <div class="btn">
+        <text class="btn-word" @click="back">回到首页</text>
+      </div>
   </div>
 </template>
 
@@ -49,6 +52,20 @@
     font-size: 16px;
     color: #666;
   }
+  .btn {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #0683e5;
+  }
+  .btn-word {
+    color: #8a97ab;
+    width: 200px;
+    text-align: center;
+  }
 </style>
 
 <script>
@@ -61,7 +78,9 @@
       };
     },
     methods: {
-
+      back () {
+        this.$router.go(-1)
+      }
     },
     created () {
       let champion_id = this.$route.params.id
